@@ -796,3 +796,29 @@ class Kolsch(Board):
             "serial",
             "spisdcard",
         })
+
+#---------------------------------------------------------------------------------------------------
+# MYD Boards
+#---------------------------------------------------------------------------------------------------
+class MYDJ7A100T(Board):
+    def __init__(self):
+        from litex_boards.targets import myd_j7a100t
+        Board.__init__(self, myd_j7a100t.BaseSoC, soc_capabilities={
+            #"crossover",
+            # Communication
+            "serial",
+            "ethernet",
+            # GPIOs
+            "leds",
+            "switches",
+            # Storage
+            "sdcard",
+        })
+
+    def load(self, filename, programmer_name="openocd", jtag_config="../litex-boards/litex_boards/prog/openocd_xc7_ktlink.cfg"):
+        prog = self.platform.create_programmer(programmer_name, jtag_config)
+        prog.load_bitstream(filename)
+
+    def flash(self, filename, programmer_name="openocd", jtag_config="../litex-boards/litex_boards/prog/openocd_xc7_ktlink.cfg"):
+        prog = self.platform.create_programmer(programmer_name, jtag_config)
+        prog.flash(0, filename)
