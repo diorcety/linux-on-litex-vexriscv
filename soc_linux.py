@@ -53,7 +53,7 @@ def SoCLinux(soc_cls, **kwargs):
         # I2C --------------------------------------------------------------------------------------
 
         def add_i2c(self):
-            self.i2c0 = I2CMaster(self.platform.request("i2c", 0))
+            self.i2c = I2CMaster(self.platform.request("i2c", 0))
 
         # Ethernet configuration -------------------------------------------------------------------
 
