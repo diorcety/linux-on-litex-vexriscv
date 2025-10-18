@@ -822,3 +822,28 @@ class MYDJ7A100T(Board):
     def flash(self, filename, programmer_name="openocd", jtag_config="../litex-boards/litex_boards/prog/openocd_xc7_ktlink.cfg"):
         prog = self.platform.create_programmer(programmer_name, jtag_config)
         prog.flash(0, filename)
+
+#---------------------------------------------------------------------------------------------------
+# MVe Boards
+#---------------------------------------------------------------------------------------------------
+class MVEHIL(Board):
+    def __init__(self):
+        from litex_boards.targets import mve_hil
+        Board.__init__(self, mve_hil.BaseSoC, soc_capabilities={
+            #"crossover",
+            # Communication
+            "serial",
+            "ethernet",
+            # GPIOs
+            "leds",
+            # Storage
+            "sdcard",
+        })
+
+    def load(self, filename, programmer_name="openocd", jtag_config="../litex-boards/litex_boards/prog/openocd_xc7_ktlink.cfg"):
+        prog = self.platform.create_programmer(programmer_name, jtag_config)
+        prog.load_bitstream(filename)
+
+    def flash(self, filename, programmer_name="openocd", jtag_config="../litex-boards/litex_boards/prog/openocd_xc7_ktlink.cfg"):
+        prog = self.platform.create_programmer(programmer_name, jtag_config)
+        prog.flash(0, filename)
